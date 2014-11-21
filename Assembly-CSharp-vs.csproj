@@ -62,6 +62,10 @@
      <Compile Include="Assets\OVR\Scripts\Util\OVRUGUI.cs" />
      <Compile Include="Assets\OVR\Scripts\Util\OVRVisionGuide.cs" />
      <Compile Include="Assets\Scripts\Cube.cs" />
+     <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\Key.cs" />
+     <Compile Include="Assets\Scripts\LockMouse.cs" />
+     <Compile Include="Assets\Scripts\Portal.cs" />
      <Compile Include="Assets\Scripts\RotateObject.cs" />
      <Compile Include="Assets\Scripts\Timer.cs" />
      <None Include="Assets\Plugins\donotdelete.txt" />
