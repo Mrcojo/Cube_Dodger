@@ -62,6 +62,7 @@
      <Compile Include="Assets\OVR\Scripts\Util\OVRUGUI.cs" />
      <Compile Include="Assets\OVR\Scripts\Util\OVRVisionGuide.cs" />
      <Compile Include="Assets\Scripts\Cube.cs" />
+     <Compile Include="Assets\Scripts\CubeSpawner.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\Key.cs" />
      <Compile Include="Assets\Scripts\LockMouse.cs" />
