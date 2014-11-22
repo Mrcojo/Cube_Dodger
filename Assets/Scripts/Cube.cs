@@ -20,21 +20,29 @@ public class Cube : MonoBehaviour {
 	void OnTriggerEnter (Collider otherCollider) {
 		if (otherCollider.transform.tag == "Player") {
 			switch (transform.tag) {
-			case "DamageCube":
-				gameManager.DamagePlayer();
-				break;
-			case "TimerCube":
-				gameManager.ExtendGameTime();
-				break;
-			case "GravityCube":
-				gameManager.ReduceGravity();
-				break;
+				case "DamageCube":
+					gameManager.RemoveLife();
+					break;
+				case "TimerCube":
+					gameManager.ExtendGameTime();
+					break;
+				case "GravityCube":
+					gameManager.ReduceGravity();
+					break;
+				case "LifeCube":
+					gameManager.AddLife();
+					break;
 			}
 		}
 
-		if (otherCollider.transform.tag == "Environment") {
-			spawner.WaitAndSpawn();
+		if (otherCollider.transform.tag == "Environment" && 
+		    (otherCollider.transform.tag != "DamageCube" && 
+		    otherCollider.transform.tag != "TimerCube" &&
+		    otherCollider.transform.tag != "GravityCube" &&
+		    otherCollider.transform.tag != "LifeCube")) {
+
 			GameObject.Destroy(gameObject);
+			spawner.WaitAndSpawn();
 		}
 	}
 }

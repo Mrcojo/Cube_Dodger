@@ -24,16 +24,19 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		int minutes = Mathf.FloorToInt(gameTimer.time / 60);
 		int seconds = Mathf.FloorToInt(gameTimer.time - minutes * 60);
-		
-		timerText.text = 0 + "" + minutes + "." + seconds;
 
+		if (seconds < 10 ) {
+			timerText.text = 0 + "" + minutes + ".0" + seconds;
+		} else {
+			timerText.text = 0 + "" + minutes + "." + seconds;
+		}
 		if(gravityTimer.timerEnded) {
 			Physics.gravity = gravityValue;
 			gravityTimer.timerEnded = false;
 		}
 	}
 
-	public void DamagePlayer () {
+	public void RemoveLife () {
 		if (playerLives <= 0) {
 			Application.Quit();
 		}
@@ -41,6 +44,12 @@ public class GameManager : MonoBehaviour {
 			playerLives--;
 		}
 
+		livesText.text = "Lives: " + playerLives;
+	}
+
+	public void AddLife () {
+		playerLives++;
+		
 		livesText.text = "Lives: " + playerLives;
 	}
 
