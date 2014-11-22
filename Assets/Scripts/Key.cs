@@ -4,6 +4,7 @@ using System.Collections;
 public class Key : MonoBehaviour {
 
 	public Portal portal;
+	public AudioClip clip;
 
 	// Use this for initialization
 	void Start () {
@@ -11,6 +12,7 @@ public class Key : MonoBehaviour {
 
 	void OnTriggerEnter (Collider otherCollider) {
 		if (otherCollider.transform.tag == "Player") {
+			AudioSource.PlayClipAtPoint(clip, transform.position);
 			portal.Addkey();
 			GameObject.Destroy(gameObject);
 		}

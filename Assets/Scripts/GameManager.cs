@@ -11,10 +11,22 @@ public class GameManager : MonoBehaviour {
 	public Vector3 gravityValue;
 
 	public TextMesh timerText;
+	public TextMesh keysText;
 	public TextMesh livesText;
-	
+	public TextMesh messageText;
+
+	public AudioClip damageSound;
+	public AudioClip gameOverSound;
+	public AudioClip winSound;
+
+	private CharacterController controller;
+	private bool gameOver;
+
 	// Use this for initialization
 	void Start () {
+		gameOver = false;
+		controller = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
+
 		gravityValue = new Vector3(0, -9.81f, 0);
 		gameTimer.StartTimer();
 
@@ -22,25 +34,55 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Update () {
-		int minutes = Mathf.FloorToInt(gameTimer.time / 60);
-		int seconds = Mathf.FloorToInt(gameTimer.time - minutes * 60);
+		if (gameTimer.time > 0 && playerLives > 0) {
+			int minutes = Mathf.FloorToInt(gameTimer.time / 60);
+			int seconds = Mathf.FloorToInt(gameTimer.time - minutes * 60);
+			
+			if (seconds < 10 ) {
+				timerText.text = 0 + "" + minutes + ".0" + seconds;
+			} else {
+				timerText.text = 0 + "" + minutes + "." + seconds;
+			}
+			
+			if(gravityTimer.timerEnded) {
+				Physics.gravity = gravityValue;
+				gravityTimer.timerEnded = false;
+			}	
+		} 
+		else {
+			if (!gameOver) {
+				GameOver();
+			}	
+		}	
+	}
 
-		if (seconds < 10 ) {
-			timerText.text = 0 + "" + minutes + ".0" + seconds;
-		} else {
-			timerText.text = 0 + "" + minutes + "." + seconds;
-		}
-		if(gravityTimer.timerEnded) {
-			Physics.gravity = gravityValue;
-			gravityTimer.timerEnded = false;
-		}
+	public void UpdateKeysNumber (int keys) {
+		keysText.text = "Keys: " + keys + " / 3";
+	}
+
+	public void UpdateMessageText (string message) {
+		messageText.text = message;
+	}
+
+	public void GameOver () {
+		gameOver = true;
+		messageText.text = "GAME OVER";
+		AudioSource.PlayClipAtPoint(gameOverSound, transform.position);
+		controller.enabled = false;
+	}
+
+	public void GameSuccess () {
+		messageText.text = "WELL DONE!";
+		AudioSource.PlayClipAtPoint(winSound, transform.position);
+		controller.enabled = false;
 	}
 
 	public void RemoveLife () {
 		if (playerLives <= 0) {
-			Application.Quit();
+			GameOver();
 		}
 		else {
+			AudioSource.PlayClipAtPoint(damageSound, transform.position);
 			playerLives--;
 		}
 
@@ -58,7 +100,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void ReduceGravity () {
-		Physics.gravity = (gravityValue / 4);
+		Physics.gravity = (gravityValue / 7);
 		gravityTimer.StopTimer();
 		gravityTimer.StartTimer();
 	}

@@ -67,6 +67,7 @@
      <Compile Include="Assets\Scripts\Key.cs" />
      <Compile Include="Assets\Scripts\LockMouse.cs" />
      <Compile Include="Assets\Scripts\Portal.cs" />
+     <Compile Include="Assets\Scripts\PortalDoor.cs" />
      <Compile Include="Assets\Scripts\RotateObject.cs" />
      <Compile Include="Assets\Scripts\Timer.cs" />
      <None Include="Assets\Plugins\donotdelete.txt" />
