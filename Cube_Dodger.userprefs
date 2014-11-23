@@ -1,9 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GameManager.cs">
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\VR_Missions\Assets\Scripts\System\Core\InitializeGame.cs">
     <Files>
-      <File FileName="Assets\Scripts\GameManager.cs" Line="39" Column="35" />
-      <File FileName="Assets\Scripts\Cube.cs" Line="11" Column="2" />
+      <File FileName="..\VR_Missions\Assets\Scripts\System\Core\InitializeGame.cs" Line="71" Column="1" />
+      <File FileName="..\VR_Missions\Assets\Scripts\Objects\MovingThroughPoints.cs" Line="29" Column="26" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
