@@ -14,13 +14,15 @@ public class GameManager : MonoBehaviour {
 	public TextMesh keysText;
 	public TextMesh livesText;
 	public TextMesh messageText;
-
-	public AudioClip damageSound;
+	
 	public AudioClip gameOverSound;
 	public AudioClip winSound;
+	public AudioClip jumpSound;
 
 	private CharacterController controller;
 	private bool gameOver;
+
+	public AudioSource bgm;
 
 	// Use this for initialization
 	void Start () {
@@ -34,6 +36,10 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Update () {
+		if (Input.GetKeyUp(KeyCode.Space)) {
+			AudioSource.PlayClipAtPoint(jumpSound, transform.position);
+		}
+
 		if (gameTimer.time > 0 && playerLives > 0) {
 			int minutes = Mathf.FloorToInt(gameTimer.time / 60);
 			int seconds = Mathf.FloorToInt(gameTimer.time - minutes * 60);
@@ -52,7 +58,13 @@ public class GameManager : MonoBehaviour {
 		else {
 			if (!gameOver) {
 				GameOver();
-			}	
+			}
+			else {
+				if (bgm.volume > 0) {
+					bgm.volume -= 0.05f;
+				}
+			}
+				
 		}	
 	}
 
@@ -72,6 +84,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void GameSuccess () {
+		gameOver = true;
 		messageText.text = "WELL DONE!";
 		AudioSource.PlayClipAtPoint(winSound, transform.position);
 		controller.enabled = false;
@@ -82,7 +95,6 @@ public class GameManager : MonoBehaviour {
 			GameOver();
 		}
 		else {
-			AudioSource.PlayClipAtPoint(damageSound, transform.position);
 			playerLives--;
 		}
 
