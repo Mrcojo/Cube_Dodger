@@ -20,13 +20,17 @@ public class GameManager : MonoBehaviour {
 	public AudioClip jumpSound;
 
 	private CharacterController controller;
+
 	private bool gameOver;
+	private bool gameSuccess;
 
 	public AudioSource bgm;
 
 	// Use this for initialization
 	void Start () {
 		gameOver = false;
+		gameSuccess = false;
+
 		controller = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
 
 		gravityValue = new Vector3(0, -9.81f, 0);
@@ -36,6 +40,10 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Update () {
+		if (Input.GetKeyUp(KeyCode.Escape)) {
+			Application.Quit();
+		}
+
 		if (Input.GetKeyUp(KeyCode.Space)) {
 			AudioSource.PlayClipAtPoint(jumpSound, transform.position);
 		}
@@ -59,13 +67,13 @@ public class GameManager : MonoBehaviour {
 			if (!gameOver) {
 				GameOver();
 			}
-			else {
-				if (bgm.volume > 0) {
-					bgm.volume -= 0.05f;
-				}
-			}
-				
 		}	
+
+		if (gameOver || gameSuccess) {
+			if (bgm.volume > 0) {
+				bgm.volume -= 0.05f;
+			}
+		} 
 	}
 
 	public void UpdateKeysNumber (int keys) {
@@ -84,7 +92,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void GameSuccess () {
-		gameOver = true;
+		gameSuccess = true;
 		messageText.text = "WELL DONE!";
 		AudioSource.PlayClipAtPoint(winSound, transform.position);
 		controller.enabled = false;
